@@ -546,26 +546,15 @@ jQuery(function($){
    });
  });
 
- $(document).on('click','#place_order', function(e){
-   if(!isCardPaymentSelected()) return true;
-   const email=currentCheckoutEmail();
-   if(verifiedEmail && verifiedEmail===email){
-     return true;
-   }
-   e.preventDefault();
-   e.stopImmediatePropagation();
-   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV48.texts.need_email); return false; }
-   if($('#simabove-otp-modal').is(':visible') || sendingOtp) return false;
-   sendOtp(true);
-   return false;
- });
-
  $('form.checkout').on('checkout_place_order', function(){
    if(!isCardPaymentSelected()) return true;
    const email=currentCheckoutEmail();
-   if(verifiedEmail && verifiedEmail===email){
-     return true;
-   }
+   // Already verified - allow order through
+   if(verifiedEmail && verifiedEmail===email) return true;
+   // Block order, then trigger OTP flow
+   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV48.texts.need_email); return false; }
+   if($('#simabove-otp-modal').is(':visible') || sendingOtp) return false;
+   sendOtp(true);
    return false;
  });
 });
