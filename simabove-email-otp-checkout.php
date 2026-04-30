@@ -2,17 +2,17 @@
 /**
  * Plugin Name: SimAbove Checkout Email OTP Verification
  * Description: OTP email verification on WooCommerce checkout with admin panel, logs, analytics, fake-email checks, country/IP filtering, and checkout-triggered OTP modal.
- * Version: 5.0.0
+ * Version: 4.8.0
  * Author: SimAbove
  */
 
 if (!defined('ABSPATH')) exit;
 
-class SimAbove_Checkout_Email_OTP_Verification_V50 {
-    const NONCE_SEND = 'simabove_send_checkout_otp_v50';
-    const NONCE_VERIFY = 'simabove_verify_checkout_otp_v50';
-    const OPTION_KEY = 'simabove_checkout_otp_settings_v50';
-    const LOG_TABLE = 'simabove_otp_logs_v50';
+class SimAbove_Checkout_Email_OTP_Verification_V48 {
+    const NONCE_SEND = 'simabove_send_checkout_otp_v48';
+    const NONCE_VERIFY = 'simabove_verify_checkout_otp_v48';
+    const OPTION_KEY = 'simabove_checkout_otp_settings_v48';
+    const LOG_TABLE = 'simabove_otp_logs_v48';
 
     private $defaults = array(
         'enabled' => 1,
@@ -65,109 +65,6 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
         'tr_es_email_heading' => 'SimAbove',
         'tr_es_email_intro' => 'Usa el siguiente código para verificar tu dirección de correo electrónico y completar tu pedido.',
         'tr_es_email_footer' => 'eSIM internacional para viajar - SimAbove',
-        'code_label' => 'VERIFICATION CODE',
-        'email_expiry_text' => 'This code expires in 10 minutes.',
-        'email_ignore_text' => 'If you did not request this code, you can ignore this email.',
-        'send_code_success_text' => 'Verification code sent to your email.',
-        'button_verify_email' => 'Verify email',
-        'button_resend_code' => 'Resend code',
-        'button_close' => 'Close',
-        'status_verified' => 'Email verified.',
-        'status_need_email' => 'Please enter a valid email address first.',
-        'status_invalid_code' => 'Invalid code.',
-        'status_verifying' => 'Verifying...',
-        'status_seconds_left' => 'seconds until resend',
-        'status_timer_prefix' => 'Code expires in:',
-        'status_expired' => 'Verification code expired. Please resend a new code.',
-        'status_sending' => 'Sending code...',
-        'status_send_failed' => 'Could not send code. Please try again.',
-        'status_verify_failed' => 'Verification failed. Please try again.',
-        'tr_lv_code_label' => 'APSTIPRINĀŠANAS KODS',
-        'tr_lv_email_expiry_text' => 'Šis kods ir derīgs 10 minūtes.',
-        'tr_lv_email_ignore_text' => 'Ja jūs nepieprasījāt šo kodu, šo e-pastu varat ignorēt.',
-        'tr_lv_send_code_success_text' => 'Apstiprināšanas kods ir nosūtīts uz jūsu e-pastu.',
-        'tr_lv_button_verify_email' => 'Apstiprināt e-pastu',
-        'tr_lv_button_resend_code' => 'Sūtīt kodu vēlreiz',
-        'tr_lv_button_close' => 'Aizvērt',
-        'tr_lv_status_verified' => 'E-pasts ir apstiprināts.',
-        'tr_lv_status_need_email' => 'Lūdzu, vispirms ievadiet derīgu e-pasta adresi.',
-        'tr_lv_status_invalid_code' => 'Nederīgs kods.',
-        'tr_lv_status_verifying' => 'Notiek pārbaude...',
-        'tr_lv_status_seconds_left' => 'sekundes līdz atkārtotai nosūtīšanai',
-        'tr_lv_status_timer_prefix' => 'Kods derīgs:',
-        'tr_lv_status_expired' => 'Apstiprināšanas kodam beidzies derīgums. Lūdzu, pieprasiet jaunu kodu.',
-        'tr_lv_status_sending' => 'Kods tiek sūtīts...',
-        'tr_lv_status_send_failed' => 'Neizdevās nosūtīt kodu. Lūdzu, mēģiniet vēlreiz.',
-        'tr_lv_status_verify_failed' => 'Pārbaude neizdevās. Lūdzu, mēģiniet vēlreiz.',
-        'tr_et_code_label' => 'KINNITUSKOOD',
-        'tr_et_email_expiry_text' => 'See kood kehtib 10 minutit.',
-        'tr_et_email_ignore_text' => 'Kui teie seda koodi ei taotlenud, võite selle e-kirja ignoreerida.',
-        'tr_et_send_code_success_text' => 'Kinnituskood saadeti teie e-posti aadressile.',
-        'tr_et_button_verify_email' => 'Kinnita e-post',
-        'tr_et_button_resend_code' => 'Saada kood uuesti',
-        'tr_et_button_close' => 'Sulge',
-        'tr_et_status_verified' => 'E-post on kinnitatud.',
-        'tr_et_status_need_email' => 'Palun sisestage kõigepealt kehtiv e-posti aadress.',
-        'tr_et_status_invalid_code' => 'Vigane kood.',
-        'tr_et_status_verifying' => 'Kontrollimine...',
-        'tr_et_status_seconds_left' => 'sekundit uuesti saatmiseni',
-        'tr_et_status_timer_prefix' => 'Kood aegub:',
-        'tr_et_status_expired' => 'Kinnituskood aegus. Palun saatke uus kood.',
-        'tr_et_status_sending' => 'Koodi saadetakse...',
-        'tr_et_status_send_failed' => 'Koodi ei õnnestunud saata. Palun proovige uuesti.',
-        'tr_et_status_verify_failed' => 'Kinnitamine ebaõnnestus. Palun proovige uuesti.',
-        'tr_ru_code_label' => 'КОД ПОДТВЕРЖДЕНИЯ',
-        'tr_ru_email_expiry_text' => 'Этот код действителен 10 минут.',
-        'tr_ru_email_ignore_text' => 'Если вы не запрашивали этот код, просто проигнорируйте это письмо.',
-        'tr_ru_send_code_success_text' => 'Код подтверждения отправлен на вашу электронную почту.',
-        'tr_ru_button_verify_email' => 'Подтвердить e-mail',
-        'tr_ru_button_resend_code' => 'Отправить код снова',
-        'tr_ru_button_close' => 'Закрыть',
-        'tr_ru_status_verified' => 'E-mail подтвержден.',
-        'tr_ru_status_need_email' => 'Пожалуйста, сначала введите действительный адрес электронной почты.',
-        'tr_ru_status_invalid_code' => 'Неверный код.',
-        'tr_ru_status_verifying' => 'Проверка...',
-        'tr_ru_status_seconds_left' => 'секунд до повторной отправки',
-        'tr_ru_status_timer_prefix' => 'Код действует:',
-        'tr_ru_status_expired' => 'Срок действия кода подтверждения истек. Пожалуйста, запросите новый код.',
-        'tr_ru_status_sending' => 'Код отправляется...',
-        'tr_ru_status_send_failed' => 'Не удалось отправить код. Пожалуйста, попробуйте снова.',
-        'tr_ru_status_verify_failed' => 'Проверка не удалась. Пожалуйста, попробуйте снова.',
-        'tr_lt_code_label' => 'PATVIRTINIMO KODAS',
-        'tr_lt_email_expiry_text' => 'Šis kodas galioja 10 minučių.',
-        'tr_lt_email_ignore_text' => 'Jei šio kodo neprašėte, galite ignoruoti šį el. laišką.',
-        'tr_lt_send_code_success_text' => 'Patvirtinimo kodas išsiųstas į jūsų el. paštą.',
-        'tr_lt_button_verify_email' => 'Patvirtinti el. paštą',
-        'tr_lt_button_resend_code' => 'Siųsti kodą dar kartą',
-        'tr_lt_button_close' => 'Uždaryti',
-        'tr_lt_status_verified' => 'El. paštas patvirtintas.',
-        'tr_lt_status_need_email' => 'Pirmiausia įveskite galiojantį el. pašto adresą.',
-        'tr_lt_status_invalid_code' => 'Neteisingas kodas.',
-        'tr_lt_status_verifying' => 'Tikrinama...',
-        'tr_lt_status_seconds_left' => 'sekundžių iki pakartotinio siuntimo',
-        'tr_lt_status_timer_prefix' => 'Kodas galioja:',
-        'tr_lt_status_expired' => 'Patvirtinimo kodo galiojimas baigėsi. Prašome išsiųsti naują kodą.',
-        'tr_lt_status_sending' => 'Kodas siunčiamas...',
-        'tr_lt_status_send_failed' => 'Nepavyko išsiųsti kodo. Bandykite dar kartą.',
-        'tr_lt_status_verify_failed' => 'Patvirtinimas nepavyko. Bandykite dar kartą.',
-        'tr_es_code_label' => 'CÓDIGO DE VERIFICACIÓN',
-        'tr_es_email_expiry_text' => 'Este código es válido durante 10 minutos.',
-        'tr_es_email_ignore_text' => 'Si no solicitaste este código, puedes ignorar este correo electrónico.',
-        'tr_es_send_code_success_text' => 'El código de verificación ha sido enviado a tu correo electrónico.',
-        'tr_es_button_verify_email' => 'Verificar correo',
-        'tr_es_button_resend_code' => 'Reenviar código',
-        'tr_es_button_close' => 'Cerrar',
-        'tr_es_status_verified' => 'Correo electrónico verificado.',
-        'tr_es_status_need_email' => 'Primero introduce una dirección de correo electrónico válida.',
-        'tr_es_status_invalid_code' => 'Código no válido.',
-        'tr_es_status_verifying' => 'Verificando...',
-        'tr_es_status_seconds_left' => 'segundos hasta reenviar',
-        'tr_es_status_timer_prefix' => 'El código caduca en:',
-        'tr_es_status_expired' => 'El código de verificación ha caducado. Solicita un nuevo código.',
-        'tr_es_status_sending' => 'Enviando código...',
-        'tr_es_status_send_failed' => 'No se pudo enviar el código. Inténtalo de nuevo.',
-        'tr_es_status_verify_failed' => 'La verificación falló. Inténtalo de nuevo.',
-
     );
 
     private $disposable = array('mailinator.com','guerrillamail.com','10minutemail.com','tempmail.com','yopmail.com','trashmail.com','sharklasers.com','dispostable.com','fakeinbox.com','emailondeck.com');
@@ -198,10 +95,10 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
         add_action('admin_init', array($this,'register_settings'));
         add_action('wp_enqueue_scripts', array($this,'enqueue_assets'));
         add_action('woocommerce_after_checkout_form', array($this,'render_ui'));
-        add_action('wp_ajax_simabove_send_checkout_otp_v50', array($this,'ajax_send_otp'));
-        add_action('wp_ajax_nopriv_simabove_send_checkout_otp_v50', array($this,'ajax_send_otp'));
-        add_action('wp_ajax_simabove_verify_checkout_otp_v50', array($this,'ajax_verify_otp'));
-        add_action('wp_ajax_nopriv_simabove_verify_checkout_otp_v50', array($this,'ajax_verify_otp'));
+        add_action('wp_ajax_simabove_send_checkout_otp_v48', array($this,'ajax_send_otp'));
+        add_action('wp_ajax_nopriv_simabove_send_checkout_otp_v48', array($this,'ajax_send_otp'));
+        add_action('wp_ajax_simabove_verify_checkout_otp_v48', array($this,'ajax_verify_otp'));
+        add_action('wp_ajax_nopriv_simabove_verify_checkout_otp_v48', array($this,'ajax_verify_otp'));
         add_action('woocommerce_after_checkout_validation', array($this,'validate_before_checkout'), 20, 2);
     }
 
@@ -294,7 +191,7 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
         $out['resend_cooldown_seconds'] = max(10, min(600, intval($in['resend_cooldown_seconds'] ?? 60)));
         $out['max_attempts'] = max(1, min(20, intval($in['max_attempts'] ?? 5)));
         $out['otp_length'] = max(4, min(8, intval($in['otp_length'] ?? 6)));
-        foreach (array('email_subject','email_heading','email_footer','verify_modal_title','verify_modal_text','allowed_country_codes','blocked_country_codes','logo_url','email_bg_color','email_card_bg','tr_lv_verify_modal_title','tr_lv_verify_modal_text','tr_lv_email_subject','tr_lv_email_heading','tr_lv_email_footer','tr_et_verify_modal_title','tr_et_verify_modal_text','tr_et_email_subject','tr_et_email_heading','tr_et_email_footer','tr_ru_verify_modal_title','tr_ru_verify_modal_text','tr_ru_email_subject','tr_ru_email_heading','tr_ru_email_footer','tr_lt_verify_modal_title','tr_lt_verify_modal_text','tr_lt_email_subject','tr_lt_email_heading','tr_lt_email_footer','tr_es_verify_modal_title','tr_es_verify_modal_text','tr_es_email_subject','tr_es_email_heading','tr_es_email_footer','code_label','email_expiry_text','email_ignore_text','send_code_success_text','button_verify_email','button_resend_code','button_close','status_verified','status_need_email','status_invalid_code','status_verifying','status_seconds_left','status_timer_prefix','status_expired','status_sending','status_send_failed','status_verify_failed','tr_lv_code_label','tr_lv_email_expiry_text','tr_lv_email_ignore_text','tr_lv_send_code_success_text','tr_lv_button_verify_email','tr_lv_button_resend_code','tr_lv_button_close','tr_lv_status_verified','tr_lv_status_need_email','tr_lv_status_invalid_code','tr_lv_status_verifying','tr_lv_status_seconds_left','tr_lv_status_timer_prefix','tr_lv_status_expired','tr_lv_status_sending','tr_lv_status_send_failed','tr_lv_status_verify_failed','tr_et_code_label','tr_et_email_expiry_text','tr_et_email_ignore_text','tr_et_send_code_success_text','tr_et_button_verify_email','tr_et_button_resend_code','tr_et_button_close','tr_et_status_verified','tr_et_status_need_email','tr_et_status_invalid_code','tr_et_status_verifying','tr_et_status_seconds_left','tr_et_status_timer_prefix','tr_et_status_expired','tr_et_status_sending','tr_et_status_send_failed','tr_et_status_verify_failed','tr_ru_code_label','tr_ru_email_expiry_text','tr_ru_email_ignore_text','tr_ru_send_code_success_text','tr_ru_button_verify_email','tr_ru_button_resend_code','tr_ru_button_close','tr_ru_status_verified','tr_ru_status_need_email','tr_ru_status_invalid_code','tr_ru_status_verifying','tr_ru_status_seconds_left','tr_ru_status_timer_prefix','tr_ru_status_expired','tr_ru_status_sending','tr_ru_status_send_failed','tr_ru_status_verify_failed','tr_lt_code_label','tr_lt_email_expiry_text','tr_lt_email_ignore_text','tr_lt_send_code_success_text','tr_lt_button_verify_email','tr_lt_button_resend_code','tr_lt_button_close','tr_lt_status_verified','tr_lt_status_need_email','tr_lt_status_invalid_code','tr_lt_status_verifying','tr_lt_status_seconds_left','tr_lt_status_timer_prefix','tr_lt_status_expired','tr_lt_status_sending','tr_lt_status_send_failed','tr_lt_status_verify_failed','tr_es_code_label','tr_es_email_expiry_text','tr_es_email_ignore_text','tr_es_send_code_success_text','tr_es_button_verify_email','tr_es_button_resend_code','tr_es_button_close','tr_es_status_verified','tr_es_status_need_email','tr_es_status_invalid_code','tr_es_status_verifying','tr_es_status_seconds_left','tr_es_status_timer_prefix','tr_es_status_expired','tr_es_status_sending','tr_es_status_send_failed','tr_es_status_verify_failed') as $f) {
+        foreach (array('email_subject','email_heading','email_footer','verify_modal_title','verify_modal_text','allowed_country_codes','blocked_country_codes','logo_url','email_bg_color','email_card_bg','tr_lv_verify_modal_title','tr_lv_verify_modal_text','tr_lv_email_subject','tr_lv_email_heading','tr_lv_email_footer','tr_et_verify_modal_title','tr_et_verify_modal_text','tr_et_email_subject','tr_et_email_heading','tr_et_email_footer','tr_ru_verify_modal_title','tr_ru_verify_modal_text','tr_ru_email_subject','tr_ru_email_heading','tr_ru_email_footer','tr_lt_verify_modal_title','tr_lt_verify_modal_text','tr_lt_email_subject','tr_lt_email_heading','tr_lt_email_footer','tr_es_verify_modal_title','tr_es_verify_modal_text','tr_es_email_subject','tr_es_email_heading','tr_es_email_footer') as $f) {
             $out[$f] = sanitize_text_field($in[$f] ?? $out[$f]);
         }
         $out['email_intro'] = sanitize_textarea_field($in['email_intro'] ?? $out['email_intro']);
@@ -328,7 +225,7 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
         $lang = $this->current_lang();
         $map = array('lv','et','ru','lt','es');
         if (in_array($lang, $map, true)) {
-            foreach (array('verify_modal_title','verify_modal_text','email_subject','email_heading','email_intro','email_footer','code_label','email_expiry_text','email_ignore_text','send_code_success_text','button_verify_email','button_resend_code','button_close','status_verified','status_need_email','status_invalid_code','status_verifying','status_seconds_left','status_timer_prefix','status_expired','status_sending','status_send_failed','status_verify_failed') as $k) {
+            foreach (array('verify_modal_title','verify_modal_text','email_subject','email_heading','email_intro','email_footer') as $k) {
                 $tk = 'tr_' . $lang . '_' . $k;
                 if (!empty($s[$tk])) $s[$k] = $s[$tk];
             }
@@ -510,13 +407,13 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
         if (!function_exists('is_checkout') || !is_checkout() || is_order_received_page()) return;
         $s = $this->localized_settings();
         wp_enqueue_script('jquery');
-        wp_register_style('simabove-checkout-otp-style-v50', false);
-        wp_enqueue_style('simabove-checkout-otp-style-v50');
+        wp_register_style('simabove-checkout-otp-style-v48', false);
+        wp_enqueue_style('simabove-checkout-otp-style-v48');
         $css = '.woocommerce-checkout, .woocommerce-checkout button, .woocommerce-checkout input, .woocommerce-checkout select, .woocommerce-checkout textarea, #simabove-otp-modal, #simabove-otp-modal * { font-family: Inter, Arial, sans-serif; } #simabove-otp-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:99998} #simabove-otp-modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(92vw,430px);background:#fff;border-radius:18px;padding:24px;box-shadow:0 25px 60px rgba(0,0,0,.2);z-index:99999} #simabove-otp-brand{font-size:14px;font-weight:700;color:#456cc8;margin:0 0 8px;letter-spacing:.02em;text-transform:uppercase} #simabove-otp-modal h3{margin:0 0 10px;font-size:22px;line-height:1.2} #simabove-otp-modal p{margin:0 0 14px;color:#475569} #simabove-otp-timer{font-size:14px;font-weight:600;color:#456cc8;margin:0 0 12px} #simabove-otp-input{width:100%;padding:12px 14px;font-size:20px;letter-spacing:5px;border:1px solid #cbd5e1;border-radius:12px;box-sizing:border-box;text-align:center} #simabove-otp-modal-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap} #simabove-otp-modal-actions .button.alt{background:#0f172a;border-color:#0f172a;color:#fff} #simabove-otp-modal-message{margin-top:10px;font-size:13px} #simabove-resend-timer{font-size:12px;color:#64748b;margin-top:10px}';
-        wp_add_inline_style('simabove-checkout-otp-style-v50', $css);
-        wp_register_script('simabove-checkout-otp-script-v50', false, array('jquery'), '4.1.0', true);
-        wp_enqueue_script('simabove-checkout-otp-script-v50');
-        wp_localize_script('simabove-checkout-otp-script-v50', 'SimAboveCheckoutOtpV50', array(
+        wp_add_inline_style('simabove-checkout-otp-style-v48', $css);
+        wp_register_script('simabove-checkout-otp-script-v48', false, array('jquery'), '4.1.0', true);
+        wp_enqueue_script('simabove-checkout-otp-script-v48');
+        wp_localize_script('simabove-checkout-otp-script-v48', 'SimAboveCheckoutOtpV48', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'send_nonce' => wp_create_nonce(self::NONCE_SEND),
             'verify_nonce' => wp_create_nonce(self::NONCE_VERIFY),
@@ -528,20 +425,13 @@ class SimAbove_Checkout_Email_OTP_Verification_V50 {
             'modal_text' => $s['verify_modal_text'],
             'brand' => $s['email_heading'],
             'texts' => array(
-                'verified' => $s['status_verified'],
-                'need_email' => $s['status_need_email'],
-                'invalid_code' => $s['status_invalid_code'],
-                'verifying' => $s['status_verifying'],
-                'seconds_left' => $s['status_seconds_left'],
-                'timer_prefix' => $s['status_timer_prefix'],
-                'expired' => $s['status_expired'],
-                'sending' => $s['status_sending'],
-                'send_failed' => $s['status_send_failed'],
-                'verify_failed' => $s['status_verify_failed'],
-                'send_success' => $s['send_code_success_text'],
-                'button_verify' => $s['button_verify_email'],
-                'button_resend' => $s['button_resend_code'],
-                'button_close' => $s['button_close'],
+                'verified' => __('Email verified.', 'simabove'),
+                'need_email' => __('Please enter a valid email address first.', 'simabove'),
+                'invalid_code' => __('Invalid code.', 'simabove'),
+                'verifying' => __('Verifying...', 'simabove'),
+                'seconds_left' => __('seconds until resend', 'simabove'),
+                'timer_prefix' => __('Code expires in:', 'simabove'),
+                'expired' => __('Verification code expired. Please resend a new code.', 'simabove'),
             ),
         ));
         $js = <<<'JS'
@@ -551,41 +441,41 @@ jQuery(function($){
  function normalizeEmail(e){return (e||'').trim().toLowerCase();}
  function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
  function getSelectedPaymentMethod(){return $('input[name="payment_method"]:checked').val()||'';}
- function isCardPaymentSelected(){return SimAboveCheckoutOtpV50.card_gateways.includes(getSelectedPaymentMethod());}
+ function isCardPaymentSelected(){return SimAboveCheckoutOtpV48.card_gateways.includes(getSelectedPaymentMethod());}
  function currentCheckoutEmail(){return normalizeEmail($('#billing_email').val());}
  function closeModal(){ $('#simabove-otp-modal-backdrop, #simabove-otp-modal').hide(); }
  function formatTime(sec){ const m=Math.floor(sec/60); const s=sec%60; return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
  function setModalMessage(msg,color){ $('#simabove-otp-modal-message').text(msg||'').css('color', color||'#475569'); }
 
  function startExpiryTimer(){
-   expiryRemaining=(parseInt(SimAboveCheckoutOtpV50.expiry_minutes,10)||10)*60;
-   $('#simabove-otp-timer').text(SimAboveCheckoutOtpV50.texts.timer_prefix+' '+formatTime(expiryRemaining));
+   expiryRemaining=(parseInt(SimAboveCheckoutOtpV48.expiry_minutes,10)||10)*60;
+   $('#simabove-otp-timer').text(SimAboveCheckoutOtpV48.texts.timer_prefix+' '+formatTime(expiryRemaining));
    if(expiryInterval) clearInterval(expiryInterval);
    expiryInterval=setInterval(function(){
      expiryRemaining--;
      if(expiryRemaining<=0){
        clearInterval(expiryInterval); expiryInterval=null;
-       $('#simabove-otp-timer').text(SimAboveCheckoutOtpV50.texts.expired);
+       $('#simabove-otp-timer').text(SimAboveCheckoutOtpV48.texts.expired);
      } else {
-       $('#simabove-otp-timer').text(SimAboveCheckoutOtpV50.texts.timer_prefix+' '+formatTime(expiryRemaining));
+       $('#simabove-otp-timer').text(SimAboveCheckoutOtpV48.texts.timer_prefix+' '+formatTime(expiryRemaining));
      }
    },1000);
  }
 
  function openModal(){
-   $('#simabove-otp-title').text(SimAboveCheckoutOtpV50.modal_title);
-   $('#simabove-otp-text').text(SimAboveCheckoutOtpV50.modal_text);
-   $('#simabove-otp-brand').text(SimAboveCheckoutOtpV50.brand);
+   $('#simabove-otp-title').text(SimAboveCheckoutOtpV48.modal_title);
+   $('#simabove-otp-text').text(SimAboveCheckoutOtpV48.modal_text);
+   $('#simabove-otp-brand').text(SimAboveCheckoutOtpV48.brand);
    $('#simabove-otp-modal-backdrop, #simabove-otp-modal').show();
    $('#simabove-otp-input').val('').focus();
-   setModalMessage(SimAboveCheckoutOtpV50.texts.sending,'#456cc8');
+   setModalMessage('Sending code...','#456cc8');
    startExpiryTimer();
  }
 
  function startCooldown(){
-   resendRemaining=parseInt(SimAboveCheckoutOtpV50.cooldown_seconds,10)||60;
+   resendRemaining=parseInt(SimAboveCheckoutOtpV48.cooldown_seconds,10)||60;
    $('#simabove-resend-otp').prop('disabled',true);
-   $('#simabove-resend-timer').text(resendRemaining+' '+SimAboveCheckoutOtpV50.texts.seconds_left);
+   $('#simabove-resend-timer').text(resendRemaining+' '+SimAboveCheckoutOtpV48.texts.seconds_left);
    if(resendInterval) clearInterval(resendInterval);
    resendInterval=setInterval(function(){
      resendRemaining--;
@@ -593,21 +483,21 @@ jQuery(function($){
        clearInterval(resendInterval); resendInterval=null;
        $('#simabove-resend-otp').prop('disabled',false); $('#simabove-resend-timer').text('');
      } else {
-       $('#simabove-resend-timer').text(resendRemaining+' '+SimAboveCheckoutOtpV50.texts.seconds_left);
+       $('#simabove-resend-timer').text(resendRemaining+' '+SimAboveCheckoutOtpV48.texts.seconds_left);
      }
    },1000);
  }
 
  function sendOtp(showModalFirst){
    const email=currentCheckoutEmail();
-   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV50.texts.need_email); return; }
+   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV48.texts.need_email); return; }
    if(showModalFirst) openModal();
    sendingOtp = true;
-   $.post(SimAboveCheckoutOtpV50.ajax_url,{action:'simabove_send_checkout_otp_v50',nonce:SimAboveCheckoutOtpV50.send_nonce,email:email})
+   $.post(SimAboveCheckoutOtpV48.ajax_url,{action:'simabove_send_checkout_otp_v48',nonce:SimAboveCheckoutOtpV48.send_nonce,email:email})
    .done(function(resp){
      sendingOtp = false;
      if(resp&&resp.success){
-       setModalMessage(resp.data.message||SimAboveCheckoutOtpV50.texts.send_success,'#456cc8');
+       setModalMessage(resp.data.message||'Verification code sent to your email.','#456cc8');
        startCooldown();
      } else {
        setModalMessage((resp&&resp.data&&resp.data.message)?resp.data.message:'Could not send code.','#b91c1c');
@@ -615,7 +505,7 @@ jQuery(function($){
    })
    .fail(function(xhr){
      sendingOtp = false;
-     let msg=SimAboveCheckoutOtpV50.texts.send_failed;
+     let msg='Could not send code. Please try again.';
      if(xhr.responseJSON&&xhr.responseJSON.data&&xhr.responseJSON.data.message) msg=xhr.responseJSON.data.message;
      setModalMessage(msg,'#b91c1c');
    });
@@ -632,25 +522,25 @@ jQuery(function($){
 
  $(document).on('click','#simabove-verify-otp',function(e){
    e.preventDefault();
-   if(expiryRemaining<=0){ setModalMessage(SimAboveCheckoutOtpV50.texts.expired,'#b91c1c'); return; }
-   const code=($('#simabove-otp-input').val()||'').trim(), email=currentCheckoutEmail(), needed=parseInt(SimAboveCheckoutOtpV50.otp_length,10)||6;
-   if(!code||code.length!==needed){ setModalMessage(SimAboveCheckoutOtpV50.texts.invalid_code,'#b91c1c'); return; }
-   setModalMessage(SimAboveCheckoutOtpV50.texts.verifying,'#456cc8');
-   $.post(SimAboveCheckoutOtpV50.ajax_url,{action:'simabove_verify_checkout_otp_v50',nonce:SimAboveCheckoutOtpV50.verify_nonce,email:email,code:code})
+   if(expiryRemaining<=0){ setModalMessage(SimAboveCheckoutOtpV48.texts.expired,'#b91c1c'); return; }
+   const code=($('#simabove-otp-input').val()||'').trim(), email=currentCheckoutEmail(), needed=parseInt(SimAboveCheckoutOtpV48.otp_length,10)||6;
+   if(!code||code.length!==needed){ setModalMessage(SimAboveCheckoutOtpV48.texts.invalid_code,'#b91c1c'); return; }
+   setModalMessage(SimAboveCheckoutOtpV48.texts.verifying,'#456cc8');
+   $.post(SimAboveCheckoutOtpV48.ajax_url,{action:'simabove_verify_checkout_otp_v48',nonce:SimAboveCheckoutOtpV48.verify_nonce,email:email,code:code})
    .done(function(resp){
      if(resp&&resp.success){
        verifiedEmail=email;
-       setModalMessage(resp.data.message||SimAboveCheckoutOtpV50.texts.verified,'#15803d');
+       setModalMessage(resp.data.message||SimAboveCheckoutOtpV48.texts.verified,'#15803d');
        setTimeout(function(){
          closeModal();
          $('form.checkout').trigger('submit');
        },300);
      } else {
-       setModalMessage((resp&&resp.data&&resp.data.message)?resp.data.message:SimAboveCheckoutOtpV50.texts.invalid_code,'#b91c1c');
+       setModalMessage((resp&&resp.data&&resp.data.message)?resp.data.message:SimAboveCheckoutOtpV48.texts.invalid_code,'#b91c1c');
      }
    })
    .fail(function(xhr){
-     let msg=SimAboveCheckoutOtpV50.texts.verify_failed;
+     let msg='Verification failed. Please try again.';
      if(xhr.responseJSON&&xhr.responseJSON.data&&xhr.responseJSON.data.message) msg=xhr.responseJSON.data.message;
      setModalMessage(msg,'#b91c1c');
    });
@@ -664,7 +554,7 @@ jQuery(function($){
    }
    e.preventDefault();
    e.stopImmediatePropagation();
-   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV50.texts.need_email); return false; }
+   if(!isValidEmail(email)){ alert(SimAboveCheckoutOtpV48.texts.need_email); return false; }
    if($('#simabove-otp-modal').is(':visible') || sendingOtp) return false;
    sendOtp(true);
    return false;
@@ -680,7 +570,7 @@ jQuery(function($){
  });
 });
 JS;
-        wp_add_inline_script('simabove-checkout-otp-script-v50', $js);
+        wp_add_inline_script('simabove-checkout-otp-script-v48', $js);
     }
 
     public function render_ui() {
@@ -695,9 +585,9 @@ JS;
             <div id="simabove-otp-timer"></div>
             <input type="text" id="simabove-otp-input" maxlength="<?php echo esc_attr(intval($this->localized_settings()['otp_length'])); ?>" inputmode="numeric" autocomplete="one-time-code" />
             <div id="simabove-otp-modal-actions">
-                <button type="button" class="button alt" id="simabove-verify-otp"><?php echo esc_html($this->localized_settings()['button_verify_email']); ?></button>
-                <button type="button" class="button" id="simabove-resend-otp"><?php echo esc_html($this->localized_settings()['button_resend_code']); ?></button>
-                <button type="button" class="button" id="simabove-otp-close"><?php echo esc_html($this->localized_settings()['button_close']); ?></button>
+                <button type="button" class="button alt" id="simabove-verify-otp"><?php echo esc_html__('Verify email', 'simabove'); ?></button>
+                <button type="button" class="button" id="simabove-resend-otp"><?php echo esc_html__('Resend code', 'simabove'); ?></button>
+                <button type="button" class="button" id="simabove-otp-close"><?php echo esc_html__('Close', 'simabove'); ?></button>
             </div>
             <div id="simabove-resend-timer"></div>
             <div id="simabove-otp-modal-message"></div>
@@ -821,15 +711,13 @@ JS;
         $heading = esc_html($s['email_heading']);
         $intro = esc_html($s['email_intro']);
         $footer = esc_html($s['email_footer']);
-        $code_label = esc_html($s['code_label']);
-        $expiry_text = esc_html($s['email_expiry_text']);
-        $ignore_text = esc_html($s['email_ignore_text']);
+        $mins = intval($s['otp_expiry_minutes']);
         $logo = !empty($s['logo_url']) ? '<div style="margin-bottom:14px;"><img src="' . esc_url($s['logo_url']) . '" alt="' . $heading . '" style="max-height:48px;width:auto;"></div>' : '';
         $header_bg = !empty($s['email_bg_color']) ? esc_attr($s['email_bg_color']) : '#456cc8';
         $card_bg = !empty($s['email_card_bg']) ? esc_attr($s['email_card_bg']) : '#f3f7ff';
-        return '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f6f9;font-family:Inter,Arial,sans-serif;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f4f6f9;"><tr><td align="center" style="padding:40px 20px;"><table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;width:100%;background:#fff;border-radius:16px;overflow:hidden;"><tr><td style="padding:28px 32px;background:' . $header_bg . ';color:#fff;font-size:24px;font-weight:700;text-align:center;">' . $logo . $heading . '</td></tr><tr><td style="padding:36px 32px;"><p style="margin:0 0 16px;font-size:16px;line-height:1.6;color:#0f172a;">'.$intro.'</p><div style="margin:24px 0;padding:22px;border:2px solid ' . $header_bg . ';border-radius:14px;background:' . $card_bg . ';text-align:center;"><div style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:' . $header_bg . ';font-weight:700;margin-bottom:8px;">'.$code_label.'</div><div style="font-size:36px;line-height:1.2;font-weight:700;color:' . $header_bg . ';">'.$code.'</div></div><p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#5f6b7a;">'.$expiry_text.'</p><p style="margin:0;font-size:14px;line-height:1.6;color:#5f6b7a;">'.$ignore_text.'</p></td></tr><tr><td style="padding:24px 32px;background:#f4f6f9;border-top:1px solid #e6e9ef;text-align:center;font-size:12px;color:#64748b;">'.$footer.'</td></tr></table></td></tr></table></body></html>';
+        return '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f6f9;font-family:Inter,Arial,sans-serif;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f4f6f9;"><tr><td align="center" style="padding:40px 20px;"><table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;width:100%;background:#fff;border-radius:16px;overflow:hidden;"><tr><td style="padding:28px 32px;background:' . $header_bg . ';color:#fff;font-size:24px;font-weight:700;text-align:center;">' . $logo . $heading . '</td></tr><tr><td style="padding:36px 32px;"><p style="margin:0 0 16px;font-size:16px;line-height:1.6;color:#0f172a;">'.$intro.'</p><div style="margin:24px 0;padding:22px;border:2px solid ' . $header_bg . ';border-radius:14px;background:' . $card_bg . ';text-align:center;"><div style="font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:' . $header_bg . ';font-weight:700;margin-bottom:8px;">Verification Code</div><div style="font-size:36px;line-height:1.2;font-weight:700;color:' . $header_bg . ';">'.$code.'</div></div><p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#5f6b7a;">This code expires in '.$mins.' minutes.</p><p style="margin:0;font-size:14px;line-height:1.6;color:#5f6b7a;">If you did not request this code, you can ignore this email.</p></td></tr><tr><td style="padding:24px 32px;background:#f4f6f9;border-top:1px solid #e6e9ef;text-align:center;font-size:12px;color:#64748b;">'.$footer.'</td></tr></table></td></tr></table></body></html>';
     }
 }
 
-register_activation_hook(__FILE__, array('SimAbove_Checkout_Email_OTP_Verification_V50', 'activate'));
-new SimAbove_Checkout_Email_OTP_Verification_V50();
+register_activation_hook(__FILE__, array('SimAbove_Checkout_Email_OTP_Verification_V48', 'activate'));
+new SimAbove_Checkout_Email_OTP_Verification_V48();
